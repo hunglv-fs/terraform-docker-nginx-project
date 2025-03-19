@@ -28,11 +28,13 @@ This project sets up a multi-container environment using Terraform and Docker. I
 │   │   ├── App.js          # Main React component
 │   │   └── index.js        # React DOM rendering
 │   └── package.json        # Frontend dependencies
+├── nginx/
+│   └── nginx.conf          # Nginx configuration
 ├── main.tf                 # Terraform configuration for Docker resources
 ├── variables.tf            # Terraform variables
 ├── outputs.tf              # Terraform outputs
-├── nginx.conf              # Nginx configuration
-└── .gitignore              # Ignored files
+├── .gitignore              # Ignored files
+└── README.MD               # Project documentation
 ```
 
 ## Prerequisites
@@ -60,21 +62,27 @@ This project sets up a multi-container environment using Terraform and Docker. I
    ```
 
 4. **Access the services**:
-   - Nginx: [http://localhost:8080](http://localhost:8080)
-   - Backend API: [http://localhost:4000](http://localhost:4000)
-   - Frontend: [http://localhost:3000](http://localhost:3000)
-   - Adminer: [http://localhost:8081](http://localhost:8081)
+   - **Nginx**: [http://localhost:8080](http://localhost:8080)
+   - **Backend API**: [http://localhost:4000](http://localhost:4000)
+   - **Frontend**: [http://localhost:3000](http://localhost:3000)
+   - **Adminer**: [http://localhost:8081](http://localhost:8081)
 
 ## Environment Variables
 
+### Backend
 The backend uses the following environment variables (defined in `backend/.env`):
-- `DATABASE_URL`: PostgreSQL connection string
-- `REDIS_HOST`: Redis hostname
+- `DATABASE_URL`: PostgreSQL connection string (e.g., `postgres://admin:adminpass@postgres_db:5432/mydb`)
+- `REDIS_HOST`: Redis hostname (e.g., `redis_cache`)
+
+### Frontend
+The frontend uses the following environment variable (defined in `frontend/.env`):
+- `REACT_APP_API_URL`: Base URL for the backend API (e.g., `http://localhost:8080`)
 
 ## Notes
 
-- The project uses the `kreuzwerker/docker` Terraform provider.
+- The project uses the `kreuzwerker/docker` Terraform provider to manage Docker resources.
 - All services are connected via a custom Docker network (`my_network`).
+- The Nginx reverse proxy routes traffic to the backend API and frontend services.
 
 ## License
 
