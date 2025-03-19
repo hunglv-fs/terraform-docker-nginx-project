@@ -30,7 +30,7 @@ resource "docker_container" "nginx" {
     external = 8080
   }
   volumes {
-    host_path      = "${var.my_module_path}/nginx.conf"
+    host_path      = "${var.my_module_path}/nginx/nginx.conf"
     container_path = "/etc/nginx/nginx.conf"
   }
   depends_on = [docker_container.nodejs]
@@ -100,10 +100,10 @@ resource "docker_container" "nodejs" {
     "REDIS_HOST=redis_cache"
   ]
   depends_on = [docker_container.postgres, docker_container.redis]
-  ports {
-    internal = 4000
-    external = 4000
-  }
+  # ports {
+  #   internal = 4000
+  #   external = 4000
+  # }
 }
 
 # 5️⃣ React App - Frontend Web
@@ -124,10 +124,10 @@ resource "docker_container" "react_frontend" {
     host_path      = "${var.my_module_path}/frontend"
     container_path = "/app"
   }
-  ports {
-    internal = 3000
-    external = 3000
-  }
+  # ports {
+  #   internal = 3000
+  #   external = 3000
+  # }
   depends_on = [docker_container.nodejs]
   
 }

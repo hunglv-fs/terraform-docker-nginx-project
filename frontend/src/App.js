@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-
+const baseUrl = process.env.REACT_APP_API_URL;
 function App() {
   const [dbData, setDbData] = useState(null);
   const [redisData, setRedisData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/db-test")
+    fetch(`${baseUrl}/api/db-test`)
       .then((res) => res.json())
       .then((data) => setDbData(data))
       .catch((err) => console.error("Error fetching DB data:", err));
-
-    fetch("http://localhost:4000/redis-test")
+    fetch(`${baseUrl}/api/redis-test`)
       .then((res) => res.json())
       .then((data) => setRedisData(data))
       .catch((err) => console.error("Error fetching Redis data:", err));
